@@ -3,8 +3,8 @@ from selenium.webdriver.common.by import By
 class MakeOrderLocators:
 
     make_order_section = [By.XPATH, ".//div[text() = 'Как это работает']"]
-    make_order_button_1 = [By.XPATH, ".//button[@class = 'Button_Button__ra12g']"]
-    make_order_button_2 = [By.XPATH, ".//button[@class = 'Button_Button__ra12g Button_Middle__1CSJM']"]
+    make_order_button_1 = [By.XPATH, ".//div[@class= 'Header_Nav__AGCXC']/button[text()='Заказать']"]
+    make_order_button_2 = [By.XPATH, ".//div[@class='Home_FinishButton__1_cWm']/button"]
 
     firstname = [By.XPATH, ".//input[@placeholder = '* Имя']"]
     secondname = [By.XPATH, ".//input[@placeholder = '* Фамилия']"]
@@ -13,7 +13,7 @@ class MakeOrderLocators:
     metro_station = [By.XPATH, ".//li[@data-index = '0']/button"]
     phone_number = [By.XPATH, ".//input[@placeholder = '* Телефон: на него позвонит курьер']"]
 
-    next_button = [By.XPATH, ".//button[@class = 'Button_Button__ra12g Button_Middle__1CSJM']"]
+    next_button = [By.XPATH, ".//button[text() = 'Далее']"]
 
     order_data = [By.XPATH, ".//input[@placeholder = '* Когда привезти самокат']"]
     order_duration_selector = [By.XPATH, ".//span[@class = 'Dropdown-arrow']"]
@@ -22,10 +22,9 @@ class MakeOrderLocators:
     grey_color = [By.ID, "grey"]
     order_comment = [By.XPATH, ".//input[@placeholder = 'Комментарий для курьера']"]
 
-    send_order_button = [By.XPATH, ".//button[@class = 'Button_Button__ra12g Button_Middle__1CSJM']"]
+    send_order_button = [By.XPATH, ".//div[@class= 'Order_Buttons__1xGrp']/button[text()='Заказать']"]
     yes_button = [By.XPATH, ".//button[text() = 'Да']"]
     completed_order = [By.XPATH, ".//div[text() = 'Заказ оформлен']"]
-    see_your_order_button = [By.XPATH, ".//button[text() = 'Посмотреть статус']"]
 
     samocat_logo = [By.XPATH, ".//img[@alt = 'Scooter']"]
     yandex_logo = [By.XPATH, ".//img[@alt = 'Yandex']"]

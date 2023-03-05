@@ -1,109 +1,23 @@
+import pytest
 from pages.home_page import QASection
-from selenium import webdriver
 from locators.qa_locators import QuestionsLocators
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.firefox.options import Options
 
 
+@pytest.mark.usefixtures("start_browser")
 class TestHomePage:
 
-
-    @classmethod
-    def setup_class(cls):
-        options = Options()
-        options.binary_location = r'C:\Program Files\Mozilla Firefox\firefox.exe'
-        cls.driver = webdriver.Firefox(executable_path=r'C:\WebDrivers\geckodriver.exe', options=options)
-
-    def test_QA_section_show_answer_for_question_1(self):
-        section = QASection(self.driver)
-
-        section.go_to_QA_section()
-
-        WebDriverWait(self.driver, 4).until(expected_conditions.visibility_of_element_located((QuestionsLocators.question_1)))
-        section.check_question_1_visible()
-
-        WebDriverWait(self.driver, 4).until(expected_conditions.visibility_of_element_located((QuestionsLocators.answer_1)))
-
-        assert self.driver.find_element(*QuestionsLocators.answer_1).is_displayed()
-
-    def test_QA_section_show_answer_for_question_2(self):
+    @pytest.mark.parametrize('question_input, answer_input',[(QuestionsLocators.question_1,QuestionsLocators.answer_1),(QuestionsLocators.question_2,QuestionsLocators.answer_2),(QuestionsLocators.question_3,QuestionsLocators.answer_3),(QuestionsLocators.question_4, QuestionsLocators.answer_4),(QuestionsLocators.question_5,QuestionsLocators.answer_5),(QuestionsLocators.question_6,QuestionsLocators.answer_6),(QuestionsLocators.question_7,QuestionsLocators.answer_7),(QuestionsLocators.question_8,QuestionsLocators.answer_8)])
+    def test_QA_section_show_answer_for_question(self, question_input, answer_input):
         section = QASection(self.driver)
         section.go_to_QA_section()
 
-        WebDriverWait(self.driver, 4).until(expected_conditions.visibility_of_element_located((QuestionsLocators.question_2)))
-        section.check_question_2_visible()
+        WebDriverWait(self.driver, 4).until(expected_conditions.visibility_of_element_located((question_input)))
+        section.check_question_visible(question_input)
 
-        WebDriverWait(self.driver, 4).until(expected_conditions.visibility_of_element_located((QuestionsLocators.answer_2)))
+        WebDriverWait(self.driver, 4).until(expected_conditions.visibility_of_element_located((answer_input)))
 
-        assert self.driver.find_element(*QuestionsLocators.answer_2).is_displayed()
+        assert self.driver.find_element(*answer_input).is_displayed()
 
-    def test_QA_section_show_answer_for_question_3(self):
-        section = QASection(self.driver)
-        section.go_to_QA_section()
-
-        WebDriverWait(self.driver, 4).until(expected_conditions.visibility_of_element_located((QuestionsLocators.question_3)))
-        section.check_question_3_visible()
-
-        WebDriverWait(self.driver, 4).until(expected_conditions.visibility_of_element_located((QuestionsLocators.answer_3)))
-
-        assert self.driver.find_element(*QuestionsLocators.answer_3).is_displayed()
-
-    def test_QA_section_show_answer_for_question_4(self):
-        section = QASection(self.driver)
-        section.go_to_QA_section()
-
-        WebDriverWait(self.driver, 4).until(expected_conditions.visibility_of_element_located((QuestionsLocators.question_4)))
-        section.check_question_4_visible()
-
-        WebDriverWait(self.driver, 4).until(expected_conditions.visibility_of_element_located((QuestionsLocators.answer_4)))
-
-        assert self.driver.find_element(*QuestionsLocators.answer_4).is_displayed()
-
-    def test_QA_section_show_answer_for_question_5(self):
-        section = QASection(self.driver)
-        section.go_to_QA_section()
-
-        WebDriverWait(self.driver, 4).until(expected_conditions.visibility_of_element_located((QuestionsLocators.question_5)))
-        section.check_question_5_visible()
-
-        WebDriverWait(self.driver, 4).until(expected_conditions.visibility_of_element_located((QuestionsLocators.answer_5)))
-
-        assert self.driver.find_element(*QuestionsLocators.answer_5).is_displayed()
-
-    def test_QA_section_show_answer_for_question_6(self):
-        section = QASection(self.driver)
-        section.go_to_QA_section()
-
-        WebDriverWait(self.driver, 4).until(expected_conditions.visibility_of_element_located((QuestionsLocators.question_6)))
-        section.check_question_6_visible()
-
-        WebDriverWait(self.driver, 4).until(expected_conditions.visibility_of_element_located((QuestionsLocators.answer_6)))
-
-        assert self.driver.find_element(*QuestionsLocators.answer_6).is_displayed()
-
-    def test_QA_section_show_answer_for_question_7(self):
-        section = QASection(self.driver)
-        section.go_to_QA_section()
-
-        WebDriverWait(self.driver, 4).until(expected_conditions.visibility_of_element_located((QuestionsLocators.question_7)))
-        section.check_question_7_visible()
-
-        WebDriverWait(self.driver, 4).until(expected_conditions.visibility_of_element_located((QuestionsLocators.answer_7)))
-
-        assert self.driver.find_element(*QuestionsLocators.answer_7).is_displayed()
-
-    def test_QA_section_show_answer_for_question_8(self):
-        section = QASection(self.driver)
-        section.go_to_QA_section()
-
-        WebDriverWait(self.driver, 4).until(expected_conditions.visibility_of_element_located((QuestionsLocators.question_8)))
-        section.check_question_8_visible()
-
-        WebDriverWait(self.driver, 4).until(expected_conditions.visibility_of_element_located((QuestionsLocators.answer_8)))
-
-        assert self.driver.find_element(*QuestionsLocators.answer_8).is_displayed()
-
-    @classmethod
-    def teardown_class(cls):
-        cls.driver.quit()
+        self.driver.quit()

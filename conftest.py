@@ -1,5 +1,7 @@
 import pytest
 from random import randint
+from selenium.webdriver.firefox.options import Options
+from selenium import webdriver
 
 
 @pytest.fixture
@@ -19,3 +21,9 @@ def order_data():
         'comment': 'Тестовый комментарий'
     }
     return data
+@pytest.fixture
+def start_browser(request):
+    options = Options()
+    options.binary_location = r'C:\Program Files\Mozilla Firefox\firefox.exe'
+    driver = webdriver.Firefox(executable_path=r'C:\WebDrivers\geckodriver.exe', options=options)
+    request.instance.driver = driver

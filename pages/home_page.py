@@ -12,38 +12,8 @@ class QASection:
         section = self.driver.find_element(*QuestionsLocators.section)
         self.driver.execute_script('arguments[0].scrollIntoView();', section)
 
-
-    def check_question_1_visible(self):
-        question_locator = QuestionsLocators.question_1
-        self.driver.find_element(*question_locator).click()
-
-    def check_question_2_visible(self):
-        question_locator = QuestionsLocators.question_2
-        self.driver.find_element(*question_locator).click()
-
-    def check_question_3_visible(self):
-        question_locator = QuestionsLocators.question_3
-        self.driver.find_element(*question_locator).click()
-
-    def check_question_4_visible(self):
-        question_locator = QuestionsLocators.question_4
-        self.driver.find_element(*question_locator).click()
-
-    def check_question_5_visible(self):
-        question_locator = QuestionsLocators.question_5
-        self.driver.find_element(*question_locator).click()
-
-    def check_question_6_visible(self):
-        question_locator = QuestionsLocators.question_6
-        self.driver.find_element(*question_locator).click()
-
-    def check_question_7_visible(self):
-        question_locator = QuestionsLocators.question_7
-        self.driver.find_element(*question_locator).click()
-
-    def check_question_8_visible(self):
-        question_locator = QuestionsLocators.question_8
-        self.driver.find_element(*question_locator).click()
+    def check_question_visible(self, question):
+        self.driver.find_element(*question).click()
 
 class OrderSection:
 

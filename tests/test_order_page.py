@@ -1,21 +1,16 @@
+import pytest
+
 from pages.home_page import OrderSection
 from pages.order_page import OrderPageUserData, OrderPageOrderData
-from selenium import webdriver
 from locators.order_locators import MakeOrderLocators
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.firefox.options import Options
-
-class TestOrderPage:
 
 
-    @classmethod
-    def setup_class(cls):
-        options = Options()
-        options.binary_location = r'C:\Program Files\Mozilla Firefox\firefox.exe'
-        cls.driver = webdriver.Firefox(executable_path=r'C:\WebDrivers\geckodriver.exe', options=options)
+@pytest.mark.usefixtures("start_browser")
+class TestOrderPage():
 
-    def test_making_order_first_data(self, user_data, order_data):
+    def test_making_order_first_data(self, user_data, order_data,start_browser):
         section = OrderSection(self.driver)
         user_order_page = OrderPageUserData(self.driver)
         order_page = OrderPageOrderData (self.driver)
@@ -41,6 +36,7 @@ class TestOrderPage:
 
         order_page.confirm_order()
         assert self.driver.find_element(*MakeOrderLocators.completed_order).is_displayed()
+        self.driver.quit()
 
 
     def test_making_order_second_data(self, user_data, order_data):
@@ -69,26 +65,25 @@ class TestOrderPage:
 
         order_page.confirm_order()
         assert self.driver.find_element(*MakeOrderLocators.completed_order).is_displayed()
+        self.driver.quit()
 
 
     def test_go_back_by_logo(self):
         order_page = OrderPageOrderData(self.driver)
+        section = OrderSection(self.driver)
 
-        order_page.see_your_order()
+        section.click_on_first_make_order_button()
         WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located((MakeOrderLocators.samocat_logo)))
         order_page.go_back_by_samocat_logo_clicking()
         assert self.driver.current_url == 'https://qa-scooter.praktikum-services.ru/'
+        self.driver.quit()
 
     def test_go_to_yandex_main_page(self):
         order_page = OrderPageOrderData(self.driver)
+        self.driver.get('https://qa-scooter.praktikum-services.ru/')
 
         WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located((MakeOrderLocators.yandex_logo)))
         order_page.go_to_yandex_main_page_by_clicking_yandex_logo()
 
         assert WebDriverWait(self.driver,3).until(expected_conditions.url_changes('https://dzen.ru/?yredirect=true'))
-
-
-
-    @classmethod
-    def teardown_class(cls):
-        cls.driver.quit()
+        self.driver.quit()

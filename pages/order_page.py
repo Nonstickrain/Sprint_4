@@ -71,10 +71,6 @@ class OrderPageOrderData:
         button = MakeOrderLocators.yes_button
         self.driver.find_element(*button).click()
 
-    def see_your_order(self):
-        button = MakeOrderLocators.see_your_order_button
-        self.driver.find_element(*button).click()
-
     def go_back_by_samocat_logo_clicking(self):
         button = MakeOrderLocators.samocat_logo
         self.driver.find_element(*button).click()
